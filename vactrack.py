@@ -10,7 +10,7 @@ url = sys.argv[1] + urlappendix
 response = requests.get(url)
 content = xmltodict.parse(response.content)
  
-if content['profile']['vacBanned'] == '1':
-    print('Banned')
-else:
-    print('CleanAF')
+playerName = content['profile']['steamID']
+banStatus = content['profile']['vacBanned'] == '1'
+
+print(f'Player: **{playerName}**\nVACBan = **{banStatus}**')
