@@ -1,4 +1,3 @@
-
 import os
 from dotenv import load_dotenv
 import discord
@@ -15,7 +14,7 @@ client = commands.Bot(command_prefix = '.vac ')
 async def on_ready():
     print('bot ready')
 
-@client.command(aliases=['Ping' 'Ping!', 'latency', 'ping!'])
+@client.command(aliases=['Ping', 'Ping!', 'latency', 'ping!'])
 async def ping(ctx):
     await ctx.send(f'Pong! {round(client.latency * 1000)} ms')
     
