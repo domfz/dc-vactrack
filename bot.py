@@ -1,5 +1,6 @@
 import os
 import subprocess
+import json
 from dotenv import load_dotenv
 import discord
 from discord.ext import commands
@@ -20,9 +21,17 @@ async def ping(ctx):
     await ctx.send(f'Pong! {round(client.latency * 1000)} ms')
 
 @client.command()
-async def track(ctx, link):
-    p = subprocess.check_output(f'python vactrack.py {link}', text=True, shell=True)
-    await ctx.send(p)
-    print(p)
+async def track(ctx, profileUrl):
+    subprocess.check_output(f'python vactrack.py {profileUrl}', text=True, shell=True)
+    await ctx.send('Player added to tracking list!')
+
+@client.command()
+async def list(ctx):
+    with open('profilelist.json') as json_file:
+        data = json.load(json_file)
+        for p in data['players']:
+            await ctx.send(p['name'])
+    
+
 
 client.run(TOKEN)
