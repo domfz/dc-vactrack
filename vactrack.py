@@ -2,15 +2,37 @@ import requests
 import xml.dom.minidom
 import xmltodict
 import sys
+import json
 
-urlappendix = '?xml=1'
-
-url = sys.argv[1] + urlappendix
-
+# Append xml to argv url profile
+url_appendix = '?xml=1'
+url = sys.argv[1] + url_appendix
+# Parse xml to 'object'
 response = requests.get(url)
 content = xmltodict.parse(response.content)
  
 playerName = content['profile']['steamID']
 banStatus = content['profile']['vacBanned'] == '1'
 
-print(f'Player: **{playerName}**\nVACBan = **{banStatus}**')
+profileInfo = {
+    'name' : playerName,
+    'banned': banStatus
+}
+
+# Write to JSON
+with open('profilelist.json') as json_file: 
+    data = json.load(json_file) 
+      
+    temp = data['players'] 
+  
+    # python object to be appended 
+    object = profileInfo
+  
+    # appending data to players
+    temp.append(object) 
+
+def write_json(data, filename='profilelist.json'):
+    with open(filename,'w') as f:
+        json.dump(data, f, indent=4)
+
+write_json(data)
