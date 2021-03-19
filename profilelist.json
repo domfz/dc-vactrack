@@ -1,12 +1,9 @@
 {
     "players": [
         {
-            "name": "|CheEZy|",
-            "banned": true
-        },
-        {
             "name": "khaLaNNz\u2714",
-            "banned": false
+            "banned": false,
+            "url": "https://steamcommunity.com/profiles/76561198801045199"
         }
     ]
 }

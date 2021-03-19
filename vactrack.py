@@ -6,7 +6,8 @@ import json
 
 # Append xml to argv url profile
 url_appendix = '?xml=1'
-url = sys.argv[1] + url_appendix
+url_base = sys.argv[1]
+url = url_base + url_appendix
 # Parse xml to 'object'
 response = requests.get(url)
 content = xmltodict.parse(response.content)
@@ -16,7 +17,8 @@ banStatus = content['profile']['vacBanned'] == '1'
 
 profileInfo = {
     'name' : playerName,
-    'banned': banStatus
+    'banned': banStatus,
+    'url': url_base
 }
 
 # Write to JSON
