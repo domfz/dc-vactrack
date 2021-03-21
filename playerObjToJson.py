@@ -4,10 +4,12 @@ import xmltodict
 import sys
 import json
 
+FILENAME = 'profilelist.json'
+URL_APPENDIX = '?xml=1'
+
 # Append xml to argv url profile
-url_appendix = '?xml=1'
 url_base = sys.argv[1]
-url = url_base + url_appendix
+url = url_base + URL_APPENDIX
 # Parse xml to 'object'
 response = requests.get(url)
 content = xmltodict.parse(response.content)
@@ -22,7 +24,7 @@ profileInfo = {
 }
 
 # Write to JSON
-with open('profilelist.json') as json_file: 
+with open(FILENAME) as json_file: 
     data = json.load(json_file) 
       
     temp = data['players'] 
@@ -33,7 +35,7 @@ with open('profilelist.json') as json_file:
     # appending data to players
     temp.append(object) 
 
-def write_json(data, filename='profilelist.json'):
+def write_json(data, filename=FILENAME):
     with open(filename,'w') as f:
         json.dump(data, f, indent=4)
 
