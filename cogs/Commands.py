@@ -1,8 +1,9 @@
-import discord
-from discord.ext import commands
-import subprocess
 import json
 import os
+import subprocess
+
+import discord
+from discord.ext import commands
 
 class Commands(commands.Cog):
 
