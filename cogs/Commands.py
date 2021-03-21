@@ -16,7 +16,7 @@ class Commands(commands.Cog):
 
     @commands.command()
     async def track(self, ctx, profileUrl):
-        subprocess.Popen(f'python playerObjToJson.py {profileUrl}', text=True, shell=True)
+        subprocess.Popen(f'python savePlayerXml.py {profileUrl}', text=True, shell=True)
         await ctx.send('Player added to tracking list!')
 
     @commands.command()
