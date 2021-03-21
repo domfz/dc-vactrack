@@ -12,24 +12,16 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 # Bot shizzl
 client = commands.Bot(command_prefix = '.vac ')
 
-@client.event
-async def on_ready():
-    print('Logged in as {0.user}'.format(client))
-
-@client.command(aliases=['Ping', 'Ping!', 'latency', 'ping!'])
-async def ping(ctx):
-    await ctx.send(f'Pong! {round(client.latency * 1000)} ms')
+@client.command()
+async def load(ctx, extension):
+    client.load_extension(f'cogs.{extension}')
 
 @client.command()
-async def track(ctx, profileUrl):
-    subprocess.Popen(f'python vactrack.py {profileUrl}', text=True, shell=True)
-    await ctx.send('Player added to tracking list!')
+async def unload(ctx, extension):
+    client.unload_extension(f'cogs.{extension}')
 
-@client.command()
-async def list(ctx):
-    with open('profilelist.json') as json_file:
-        data = json.load(json_file)
-        for p in data['players']:
-            await ctx.send(p['name'])
+for filename in os.listdir('./cogs'):
+    if filename.endswith('.py'):
+        client.load_extension(f'cogs.{filename[:-3]}')
 
 client.run(TOKEN)
