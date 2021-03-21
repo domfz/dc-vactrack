@@ -5,12 +5,11 @@ from dotenv import load_dotenv
 import discord
 from discord.ext import commands
 
-# Load token from env
+COMMAND_PREFIX = '.vac '
+client = commands.Bot(command_prefix = COMMAND_PREFIX)
+
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
-
-# Bot shizzl
-client = commands.Bot(command_prefix = '.vac ')
 
 @client.command()
 async def load(ctx, extension):
