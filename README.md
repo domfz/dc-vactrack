@@ -6,9 +6,9 @@ dc-vactrack *will be* a **Discord** bot that tracks steam profiles for **VAC ban
 
 ## Functions
 
-### Notify
+### Notify TBD
 
-The bot sends a message to a server if a tracked profile has been banned
+The bot sends a message to a channel if a tracked profile has been banned
 
 ### Track
 
