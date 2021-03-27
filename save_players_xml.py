@@ -17,7 +17,6 @@ response = urllib.request.urlopen(url).read()
 xmlFromUrl = objectify.fromstring(response)
 
 profile = objectify.Element('profile')
-profile.set('url', url_base) # TODO: This is actually just steamcommunity.com/profiles/steamID64
 profile.steamID = xmlFromUrl.steamID
 profile.steamID64 = xmlFromUrl.steamID64
 profile.vacBanned = xmlFromUrl.vacBanned
