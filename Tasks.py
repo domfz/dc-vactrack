@@ -23,7 +23,9 @@ async def vactrack():
             xmlFromFile = objectify.parse(f).getroot()
 
             #if (xmlFromUrl.vacBanned != xmlFromUrl.vacBanned):
+                
                 # TODO:
                 # - send channel message
-                # - remove File
+                # x remove File
+                # os.remove(filename)
                 # - log information and maybe exeption handling
