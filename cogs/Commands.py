@@ -1,7 +1,10 @@
 import json
-import os
+import os, glob
 import subprocess
-
+from pathlib import Path
+from lxml import objectify
+from xml.etree.ElementTree import fromstring, ElementTree
+import lxml.etree as etree
 import discord
 from discord.ext import commands
 
@@ -22,10 +25,12 @@ class Commands(commands.Cog):
 
     @commands.command()
     async def list(self, ctx):
-        with open('profilelist.json') as json_file:
-            data = json.load(json_file)
-            for p in data['players']:
-                await ctx.send(p['name'])
+        URL_BASE = 'https://steamcommunity.com/profiles/'
+        folder_path = './profiles'
+        for filename in glob.glob(os.path.join(folder_path, '*.xml')):
+            with open(filename, 'r') as f:
+                xmlFromFile = objectify.parse(f).getroot()
+                await ctx.send(f'{xmlFromFile.steamID} : {xmlFromFile.steamID+URL_BASE}')
 
 def setup(client):
     client.add_cog(Commands(client))

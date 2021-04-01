@@ -12,7 +12,7 @@ URL_APPENDIX = '?xml=1'
 
 # Tasks
 @tasks.loop(minutes=60)
-async def vactrack():
+async def vactrack(self):
     folder_path = './profiles'
     for filename in glob.glob(os.path.join(folder_path, '*.xml')):
         with open(filename, 'r') as f:
@@ -21,11 +21,10 @@ async def vactrack():
             response = urllib.request.urlopen(URL_BASE+steamIDFromFile+URL_APPENDIX).read()
             xmlFromUrl = objectify.fromstring(response)
             xmlFromFile = objectify.parse(f).getroot()
-
-            #if (xmlFromUrl.vacBanned != xmlFromUrl.vacBanned):
-                
-                # TODO:
-                # - send channel message
-                # x remove File
-                # os.remove(filename)
-                # - log information and maybe exeption handling
+            print(f'Checking {xmlFromUrl.steamID}\'s Profile...')
+            if (xmlFromUrl.vacBanned != xmlFromFile.vacBanned):
+                print(f'Checking {xmlFromUrl.steamID} was banned!')
+                await self.client.get_channel(822258507549638667).send(f'{xmlFromUrl.steamID} got banned!\n Check out his profile: {URL_BASE+steamIDFromFile}')
+                os.remove(filename)
+            else:
+                print(f'✓')

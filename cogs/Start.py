@@ -12,7 +12,7 @@ class Start(commands.Cog):
     async def on_ready(self):
         print('Logged in as {0.user}'.format(self.client))
         await self.client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name='Suspects'))
-        vactrack.start()
+        vactrack.start(self)
 
 def setup(client):
     client.add_cog(Start(client))
