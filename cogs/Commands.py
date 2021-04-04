@@ -32,5 +32,15 @@ class Commands(commands.Cog):
                 xmlFromFile = objectify.parse(f).getroot()
                 await ctx.send(f'{xmlFromFile.steamID} : {URL_BASE}{xmlFromFile.steamID64}')
 
+    @commands.command()
+    async def count(self, ctx):
+        folder_path = './profiles'
+        counter = 0
+        for filename in glob.glob(os.path.join(folder_path, '*.xml')):
+            with open(filename, 'r') as f:
+                counter = counter + 1
+        await ctx.send(f'You are currently tracking {counter} players')
+                
+
 def setup(client):
     client.add_cog(Commands(client))
