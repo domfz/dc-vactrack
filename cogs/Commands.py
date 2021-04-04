@@ -30,7 +30,7 @@ class Commands(commands.Cog):
         for filename in glob.glob(os.path.join(folder_path, '*.xml')):
             with open(filename, 'r') as f:
                 xmlFromFile = objectify.parse(f).getroot()
-                await ctx.send(f'{xmlFromFile.steamID} : {xmlFromFile.steamID+URL_BASE}')
+                await ctx.send(f'{xmlFromFile.steamID} : {URL_BASE}{xmlFromFile.steamID64}')
 
 def setup(client):
     client.add_cog(Commands(client))
