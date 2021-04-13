@@ -26,7 +26,7 @@ class commands_print(commands.Cog):
         folder_path = './profiles'
         counter = 0
         for filename in glob.glob(os.path.join(folder_path, '*.xml')):
-            with open(filename, 'r') as f:
+            with open(filename, 'r'):
                 counter = counter + 1
         await ctx.send(f'You are currently tracking {counter} players')
 
