@@ -2,8 +2,7 @@ import discord
 from discord.ext import commands
 from Tasks import vactrack
 
-class Start(commands.Cog):
-
+class events(commands.Cog):
     def __init__(self, client):
         self.client = client
     
@@ -15,4 +14,4 @@ class Start(commands.Cog):
         vactrack.start(self)
 
 def setup(client):
-    client.add_cog(Start(client))
+    client.add_cog(events(client))

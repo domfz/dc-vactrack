@@ -1,6 +1,6 @@
 import json
 import os, glob
-import subprocess
+
 from pathlib import Path
 from lxml import objectify
 from xml.etree.ElementTree import fromstring, ElementTree
@@ -8,16 +8,9 @@ import lxml.etree as etree
 import discord
 from discord.ext import commands
 
-class Commands(commands.Cog):
-
+class commands_print(commands.Cog):
     def __init__(self, client):
         self.client = client
-
-    # Commands
-    @commands.command()
-    async def track(self, ctx, profileUrl):
-        subprocess.Popen(f'python save_players_xml.py {profileUrl}', text=True, shell=True)
-        await ctx.send('Player added to tracking list!')
 
     @commands.command()
     async def list(self, ctx):
@@ -36,7 +29,11 @@ class Commands(commands.Cog):
             with open(filename, 'r') as f:
                 counter = counter + 1
         await ctx.send(f'You are currently tracking {counter} players')
-                
+
+    # Bot status Commands
+    @commands.command(aliases=['Ping', 'Ping!', 'latency', 'ping!'])
+    async def ping(self, ctx):
+        await ctx.send(f'Pong! {round(self.client.latency * 1000)} ms')
 
 def setup(client):
-    client.add_cog(Commands(client))
+    client.add_cog(commands_print(client))
